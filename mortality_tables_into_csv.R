@@ -11,12 +11,12 @@ for (year in as.character(1990:2021)){
     
     mortality_list[[year]] <- single_year %>% 
         mutate(gender = case_when(sex == 1 ~ 'Male', sex == 2 ~ 'Female'),
-               year = year) %>% 
+               year = as.numeric(year)) %>% 
         select(gender, age, qx, ex, year)
     }
 
 str(mortality_list)
 
-mortality_table <- bind_rows(mortality_list)
+mortality_table <- bind_rows(mortality_list) %>% data.frame
 
 write.csv(mortality_table, file =  "C:/Users/Adam/OneDrive/Projekty/Programowanie_R/Polskie_tablice_trwania_zycia_1990_2021.csv", row.names = F)
